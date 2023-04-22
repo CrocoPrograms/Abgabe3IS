@@ -38,10 +38,7 @@ function showRandomImageAtStart() {
         // Neue Caption
         caption.textContent = imageDescription;
 
-        //Debugging Notes
-        const key = fullImage.src ;
-        storeNotes();
-        loadNotes(key);
+
 
       }
       
@@ -50,10 +47,7 @@ function showRandomImageAtStart() {
     const cardBody = randomThumbnailLink.nextElementSibling;
     cardBody.classList.add('bg-dark', 'text-white');
     // TODO: Call switchFullImage() with the URL of the random image and the alt attribute of the thumbnail (it contains the description).
-   // Debugging: precisely calling random Image etc
-    const randomImageLink = randomThumbnailLink.href;
-    const randomImageDescription = randomThumbnailLink.querySelector('img').getAttribute('alt');
-    switchFullImage(randomImageLink, randomImageDescription);
+      switchFullImage(fullImage.src, fullImage.alt)
 }
 
 
@@ -78,7 +72,8 @@ function storeNotes() {
         localStorage.setItem(key, notes);
       }
     });
-    document.getElementById('notes').value = "Enter your note here!";
+    //Debugging
+    loadNotes(key);
 }
 
 
@@ -123,7 +118,8 @@ function switchFullImage(imageUrl, imageDescription) {
   // TODO: Set the description (the one you used for the alt attribute) as its text content.
   caption.textContent = imageDescription;
   //Debugging: add loadnotes und storenotes
-  loadNotes();
+  const key = fullImage.src
+  loadNotes(key);
   storeNotes();
 }
 
@@ -164,6 +160,7 @@ function prepareLinks() {
     });
   });
 }
+
 
 
 
