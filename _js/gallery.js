@@ -69,19 +69,17 @@ function prepareLinks() {
  * Stores or deletes the updated notes of an image after they have been changed.
  */
 function storeNotes() {
-  let notesField = document.getElementById('notes');
-  let fullImage = document.getElementById('fullImage').querySelector('figure img');
-
-  // Choose an appropriate key (hint: the full image's URL makes an easy and unique key).
-  let key = fullImage.src;
-  
   // Select the notes field and add a blur listener.
+  let notesField = document.getElementById('notes');
   notesField.addEventListener('blur', () => {
-    console.log("wurde blurry gemacht");
-    let notes = notesField.value;
+
+    let fullImage = document.getElementById('fullImage').querySelector('figure img');
+    // Choose an appropriate key (hint: the full image's URL makes an easy and unique key).
+    let key = fullImage.src;
+    let notes = notesField.textContent;
     
     // If the notes field is empty, remove the local storage entry.
-    if (notes === "Enter your notes here!") {
+    if (notes === "") {
       localStorage.removeItem(key);
     } else {
       localStorage.setItem(key, notes);
@@ -113,16 +111,10 @@ function loadNotes(key) {
   const notesField = document.getElementById('notes');
   const notesContent = localStorage.getItem(key);
 
-  // TODO: Check the local storage at the provided key.
-  if (notesContent != "Enter your notes here!") {
-    console.log("Da ist kein default entry");
-    console.log(key);
-    //  - If there's an entry, set the notes field's value to the local storage's content.
-    notesField.value = notesContent;
-  }
-  //  - If there's no entry, set the default text "Enter your notes here!".
-  else {
-    notesField.value = "Enter your notes here!";
+  if (notesContent != null && notesContent !== "") {
+    notesField.textContent = notesContent;
+  } else {
+    notesField.textContent = "Enter your notes here!";
   }
 }
 
